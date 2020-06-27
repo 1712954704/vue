@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    code: window.localStorage.getItem('code')
   },
   mutations: {
   },
