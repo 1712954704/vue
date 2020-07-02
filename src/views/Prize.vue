@@ -119,7 +119,7 @@ export default {
   mounted () {
     console.log('mouted')
     // this.userInfo()
-    // this.getPrize()
+    this.getPrize()
   },
   created () {
     console.log('created')
