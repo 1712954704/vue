@@ -172,7 +172,7 @@ export default {
         // url: 'http://fast.xioabuding.top/api/voteAdd',
         url: 'http://www.fast.test/api/voteAdd',
         method: 'post',
-        // headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'text/plain' },
         data: {
           openid: '3525434354sg',
           name: this.name,
