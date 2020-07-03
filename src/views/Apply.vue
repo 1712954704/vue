@@ -28,42 +28,36 @@
             <el-button type="primary" disabled class="import_item_button">年龄:</el-button><el-input v-model="age" placeholder="请输入内容"  maxlength="30" clearable></el-input>
           </div>
           <div class="import_item">
-            <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
 <!--              下拉菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
               <el-button type="primary" disabled class="import_item_button">近视:</el-button>
             </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="1">200以下</el-dropdown-item>
-                <el-dropdown-item command="2">200-400</el-dropdown-item>
-                <el-dropdown-item command="3">400-600</el-dropdown-item>
-                <el-dropdown-item command="4">600-800</el-dropdown-item>
-                <el-dropdown-item command="5">800-1000</el-dropdown-item>
-                <el-dropdown-item command="6">1000以上</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <el-input v-model="vision"  placeholder="请输入内容"  maxlength="30" clearable :disabled="true"></el-input>
+            <el-select v-model="flash" placeholder="请选择">
+              <el-option
+                v-for="item in items"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           </div>
           <div class="import_item">
-            <el-dropdown @command="flashCommand">
             <span class="el-dropdown-link">
-<!--              下拉菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
               <el-button type="primary" disabled class="import_item_button">近视:</el-button>
             </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="1">200以下</el-dropdown-item>
-                <el-dropdown-item command="2">200-400</el-dropdown-item>
-                <el-dropdown-item command="3">400-600</el-dropdown-item>
-                <el-dropdown-item command="4">600-800</el-dropdown-item>
-                <el-dropdown-item command="5">800-1000</el-dropdown-item>
-                <el-dropdown-item command="6">1000以上</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <el-input v-model="flash"  placeholder="请输入内容"  maxlength="30" clearable :disabled="true"></el-input>
+            <el-select v-model="vision" placeholder="请选择" @change="obtainValue">
+              <el-option
+                v-for="item in items"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           </div>
           <div class="import_show">
             <el-button type="primary" disabled class="import_show_button">宣言:
-            </el-button><el-input
+            </el-button>
+            <el-input
             type="textarea"
             placeholder="宣言"
             v-model="show"
@@ -88,16 +82,43 @@ export default {
   },
   data () {
     return {
+      items: [
+        {
+          id: '1',
+          name: '200以下'
+        },
+        {
+          id: '2',
+          name: '400-600'
+        },
+        {
+          id: '3',
+          name: '600-800'
+        },
+        {
+          id: '4',
+          name: '800-1000'
+        },
+        {
+          id: '5',
+          name: '1000以上'
+        }
+      ],
       name: '',
       phone: '',
       age: '',
       vision: '',
       flash: '',
       show: '',
-      imageUrl: ''
+      imageUrl: 'http://www.fast.test/storage/uploads/vote/20200703\\b1d10f17293b85546bd62d5fe9f68b69.jpg'
     }
   },
   methods: {
+    // 获取下拉框选中值
+    obtainValue (value) {
+      console.log(value)
+      console.log(this.vision)
+    },
     handleCommand (command) {
       this.vision = command
       // console.log(this.vision)
@@ -107,7 +128,7 @@ export default {
       this.flash = command
     },
     handleAvatarSuccess (res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      // this.imageUrl = URL.createObjectURL(file.raw)
     },
     uploadImg (f) {
       console.log(f)
@@ -121,7 +142,10 @@ export default {
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' }
       }).then(res => {
-        console.log(res)
+        var data = res.data
+        if (data.code === 200) {
+          this.imageUrl = data.data.header
+        }
         // this.imageUrl = res.data.data
         // if (this.progressPercent === 100) {
         //   this.progressFlag = false
@@ -148,7 +172,7 @@ export default {
         // url: 'http://fast.xioabuding.top/api/voteAdd',
         url: 'http://www.fast.test/api/voteAdd',
         method: 'post',
-        headers: { 'Content-Type': 'text/plain' },
+        // headers: { 'Content-Type': 'text/plain' },
         data: {
           openid: '3525434354sg',
           name: this.name,
@@ -156,16 +180,23 @@ export default {
           age: this.age,
           vision: this.vision,
           flash: this.flash,
-          show: this.show,
+          show_text: this.show,
           header_image: this.imageUrl
         }
       }).then(response => {
-        window.console.log('保存数据成功')
-        // window.console.log(response.data)
-        // window.console.log(typeof response.data)
-        // window.console.log('-----------------------------')
+        // window.console.log('保存数据成功')
+        var data = response.data
+        if (data.code === 200) {
+          this.$message({
+            message: '报名成功',
+            type: 'success'
+          })
+          this.$router.push('/hello')
+        } else {
+          this.$message.error('网络连接超时')
+        }
       }).catch(error => {
-        window.console.log('请求失败')
+        this.$message.error('网络连接超时')
         window.console.log(error)
       })
     }
