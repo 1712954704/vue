@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> |
-        <router-link to="/hello">Hello</router-link> |
-        <router-link to="/apply">投票</router-link> |
-        <router-link to="/prize">抽奖</router-link> |
-        <router-link to="/">用户验证</router-link> |
-      </el-header>
-    </el-container>
+<!--    <el-container>-->
+<!--      <el-header>-->
+<!--        <router-link to="/">Home</router-link> |-->
+<!--        <router-link to="/about">About</router-link> |-->
+<!--        <router-link to="/hello">Hello</router-link> |-->
+<!--        <router-link to="/apply">投票</router-link> |-->
+<!--        <router-link to="/prize">抽奖</router-link> |-->
+<!--        <router-link to="/answer">答题</router-link> |-->
+<!--        <router-link to="/">用户验证</router-link> |-->
+<!--      </el-header>-->
+<!--    </el-container>-->
     <router-view/>
   </div>
 </template>

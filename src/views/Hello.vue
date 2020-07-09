@@ -88,6 +88,7 @@ export default {
         method: 'get',
         headers: { 'Content-Type': 'text/plain' },
         data: {
+          openid: '3443223',
           limit: this.limit,
           page: this.page,
           like: this.search
@@ -97,6 +98,8 @@ export default {
         console.log(response)
         var data = response.data
         this.data = data.data
+        console.log(this.data)
+        // this.items.push(this.data)
         // window.console.log('请求中奖成功')
         // console.log(response.data.index)
       }).catch(error => {
@@ -148,6 +151,7 @@ export default {
   },
   mounted () {
     window.addEventListener('scroll', this.windowScroll)
+    this.getData()
     // 先给页面注册滚动事件
     // document.addEventListener('scroll', this.scrollheight(), true)
     // window.addEventListener('scroll', this.scrollheight())

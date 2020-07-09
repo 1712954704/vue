@@ -35,7 +35,7 @@ export default {
     // const code = this.getUrlParam('code')
     // const code = this.getQueryString('code')
     if (!code) {
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx59d93ce597c794b6&redirect_uri=http://wq.xioabuding.top/web/dist&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_re'
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx00f633243d4191a7&redirect_uri=http://wq.xioabuding.top/web/dist&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_re'
     } else {
       console.log(code)
       console.log('=========================')

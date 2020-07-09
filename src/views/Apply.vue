@@ -32,7 +32,7 @@
 <!--              下拉菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
               <el-button type="primary" disabled class="import_item_button">近视:</el-button>
             </span>
-            <el-select v-model="flash" placeholder="请选择">
+            <el-select v-model="flash" placeholder="请选择" class="select">
               <el-option
                 v-for="item in items"
                 :key="item.id"
@@ -45,7 +45,7 @@
             <span class="el-dropdown-link">
               <el-button type="primary" disabled class="import_item_button">近视:</el-button>
             </span>
-            <el-select v-model="vision" placeholder="请选择" @change="obtainValue">
+            <el-select v-model="vision" placeholder="请选择" @change="obtainValue" class="select">
               <el-option
                 v-for="item in items"
                 :key="item.id"
@@ -137,7 +137,7 @@ export default {
       const formdata = new FormData()
       formdata.append('image', f.file)
       this.$axios({
-        url: 'http://www.fast.test/tool/imgUpLoad',
+        url: 'http://www.fast.test/tool/vote/uploadImg',
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' }
@@ -192,6 +192,8 @@ export default {
             type: 'success'
           })
           this.$router.push('/hello')
+        } else if (data.code === 201) {
+          this.$message.error(data.msg)
         } else {
           this.$message.error('网络连接超时')
         }
@@ -286,5 +288,8 @@ export default {
   }
   .import_item_button{
     margin-right: 7px;
+  }
+  .select{
+    width: 100%;
   }
 </style>
