@@ -1,13 +1,13 @@
 <template>
   <div class="reply">
     <h2>回答</h2>
-    <div class="main">
+    <div class="reply_main">
       <div>
         {{ this.item[this.index].question_name }}
       </div>
       <img src = "../assets/1.png" alt = "">
       <div>
-        <el-radio-group v-model="score" v-for="(value, key) in item[index].select" :key="key" class="main_radio">
+        <el-radio-group v-model="score" v-for="(value, key) in item[index].select" :key="key" class="reply_main_radio">
 <!--        <el-radio-group v-model="score">-->
           <el-radio-button  :label="value.score">{{ value.option_name }}</el-radio-button>
         </el-radio-group>
@@ -98,11 +98,11 @@ export default {
     border-radius: 25px;
     box-shadow: 2px 6px 0px #BD2508;
     }
-  .main_radio{
+  .reply_main_radio{
     display: flex;
     flex-direction: column;
     }
-  .main_radio label{
+  .reply_main_radio label{
     margin-top: 10px;
     }
 </style>

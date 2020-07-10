@@ -14,7 +14,15 @@
     <router-view/>
   </div>
 </template>
-
+<script>
+export default {
+  name: 'app',
+  components: '',
+  mounted () {
+    this.$router.push('/answer')
+  }
+}
+</script>
 <style lang="stylus">
 #app
   font-family Avenir, Helvetica, Arial, sans-serif

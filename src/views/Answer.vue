@@ -1,9 +1,9 @@
 <template>
   <div class="answer">
-    <div class="main">
-      <div class="main_img" :style="contentStyleObj">
-        <img class="main_img_bg" src = "../assets/types.png" alt = "">
-        <img class="main_img_top" src = "../assets/title.png" alt = "">
+    <div class="answer_main">
+      <div class="answer_main_img" :style="contentStyleObj">
+        <img class="answer_main_img_bg" src = "../assets/types.png" alt = "">
+        <img class="answer_main_img_top" src = "../assets/title.png" alt = "">
       </div>
       <div class="begin" v-on:click="begin">
           <span>开始答题</span>
@@ -43,7 +43,11 @@ export default {
         console.log(code)
         console.log('=========================')
         this.$axios({
-          url: 'http://fast.xioabuding.top/api/wechat/infor.php?code=' + code,
+          url: 'http://fast.xioabuding.top/api/wechat/infor',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          params: {
+            code: code
+          },
           method: 'get'
         }).then(response => {
           window.console.log('请求成功')
@@ -66,7 +70,7 @@ export default {
     }
   },
   mounted () {
-    // this.getCode()
+    this.getCode()
     this.getHeight()
   }
 }
@@ -75,26 +79,28 @@ export default {
   html,body{
     /*overflow: hidden;*/
     margin:0;
+    }
+  .answer_answer{
     background: #FED51B;
     }
-  .main{
+  .answer_main{
     display: flex;
     flex-direction: column;
     margin: auto;
     width: 80%;
     height: 80%;
     }
-  .main_img{
+  .answer_main_img{
     width: 100%;
     margin-top: 40px;
     position: relative;
     }
-  .main_img_bg{
+  .answer_main_img_bg{
     width: 100%;
     height: 100%;
     object-fit:cover;
     }
-  .main_img_top{
+  .answer_main_img_top{
     position: absolute;
     left: 0;
     width: 80%;

@@ -40,7 +40,10 @@ export default {
       console.log(code)
       console.log('=========================')
       this.$axios({
-        url: 'http://wq.xioabuding.top/web/api/UserInfor.php?code=' + code,
+        url: 'http://fast.xioabuding.top/api/wechat/infor',
+        params: {
+          code: code
+        },
         method: 'get'
       }).then(response => {
         window.console.log('请求成功')
