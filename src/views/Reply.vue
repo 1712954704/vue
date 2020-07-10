@@ -54,9 +54,11 @@ export default {
     },
     getData () {
       this.$axios({
-        url: 'http://www.fast.test/api/question/infor',
+        url: 'http://fast.xioabuding.top/api/question/infor',
+        // url: 'http://www.fast.test/api/question/infor',
         method: 'get',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        // headers: { 'Content-Type': 'text/plain' },
         params: {
           // openid: '3443223',
           paperId: 2
