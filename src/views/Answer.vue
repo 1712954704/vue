@@ -51,14 +51,14 @@ export default {
           method: 'get'
         }).then(response => {
           window.console.log('请求成功')
-          window.console.log(response)
-          console.log(typeof response.data)
+          // window.console.log(response)
+          // console.log(typeof response.data)
           console.log('------------------------------')
-          console.log(response.data.code)
+          // console.log(response.data.code)
           if (response.data.code === 200) {
-            localStorage.setItem('openid', response.data.openId)
-            var openid = window.window.localStorage.getItem('openid')
-            console.log(openid)
+            localStorage.setItem('openid', response.data.data.openid)
+            // var openid = window.window.localStorage.getItem('openid')
+            // console.log(openid)
           } else {
             alert('用户信息获取失败')
           }

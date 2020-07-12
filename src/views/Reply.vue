@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       index: 0,
-      score: '',
+      score: false,
       sum: 0,
       item: [
         {
@@ -37,14 +37,23 @@ export default {
   methods: {
     next () {
       // 计数
-      this.sum = parseInt(this.sum) + parseInt(this.score)
+      // this.sum = parseInt(this.sum) + parseInt(this.score)
       // console.log(typeof (this.sum))
       // console.log(this.sum)
       // console.log(this.score)
       if (this.item.length <= this.index) {
-        return false
+        console.log(this.sum)
+        localStorage.setItem('sum', this.sum)
+        this.$router.push('/structure')
       } else {
-        this.index++
+        console.log(this.score)
+        if (this.score === false) {
+          this.$message('请选择')
+        } else {
+          this.sum = parseInt(this.sum) + parseInt(this.score)
+          this.score = false
+          this.index++
+        }
       }
       console.log('下一题')
       // console.log(this.score)
@@ -60,7 +69,6 @@ export default {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         // headers: { 'Content-Type': 'text/plain' },
         params: {
-          // openid: '3443223',
           paperId: 2
         },
         dataType: 'json'
@@ -68,7 +76,8 @@ export default {
         // console.log(response)
         // var data = response.data
         this.item = response.data.data
-        console.log(this.item)
+        localStorage.setItem('countScore', response.data.count)
+        // console.log(this.item)
       }).catch(error => {
         window.console.log('请求失败')
         window.console.log(error)
