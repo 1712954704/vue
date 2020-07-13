@@ -41,12 +41,12 @@ export default {
       // console.log(typeof (this.sum))
       // console.log(this.sum)
       // console.log(this.score)
-      if (this.item.length <= this.index) {
+      if ((this.item.length - 1) <= this.index) {
         console.log(this.sum)
         localStorage.setItem('sum', this.sum)
         this.$router.push('/structure')
       } else {
-        console.log(this.score)
+        console.log(this.sum)
         if (this.score === false) {
           this.$message('请选择')
         } else {
@@ -86,6 +86,7 @@ export default {
   },
   mounted () {
     this.getData()
+    localStorage.setItem('sum', 0)
   }
 }
 </script>

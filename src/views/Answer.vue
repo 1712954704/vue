@@ -35,10 +35,13 @@ export default {
     },
     getCode () {
       const code = window.localStorage.getItem('code')
+      const openid = window.localStorage.getItem('openid')
       // const code = this.getUrlParam('code')
       // const code = this.getQueryString('code')
       if (!code) {
         window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx00f633243d4191a7&redirect_uri=http://fast.xioabuding.top/eye/dist&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_re'
+      } else if (openid) {
+        return false
       } else {
         console.log(code)
         console.log('=========================')

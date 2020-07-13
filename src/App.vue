@@ -19,7 +19,7 @@ export default {
   name: 'app',
   components: '',
   mounted () {
-    this.$router.push('/answer')
+    this.$router.push('/qrcode')
   }
 }
 </script>

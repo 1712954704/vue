@@ -66,7 +66,7 @@ export default {
   components: '',
   data () {
     return {
-      percent: '',
+      percent: 60,
       sex: '',
       styleObj: {
         height: ''
@@ -98,11 +98,11 @@ export default {
       this.rulerStyleObj.height = document.documentElement.clientHeight * 0.6 * 0.2 + 'px'
       // $('.structure_bg').height = document.documentElement.clientHeight + 'px'
     },
-    remindStatus (status) {
-      if (status === 1) {
-        this.remind = 'good'
+    remindStatus () {
+      if (this.percent <= 40) {
+        this.remind = '您的眼睛状态良好,请继续保持良好的习惯!'
       } else {
-        this.remind = 'bad'
+        this.remind = '您的眼睛状态不太好,请及时到院检查!'
       }
     },
     // 咨询
@@ -149,6 +149,7 @@ export default {
   mounted () {
     this.getHeight()
     this.pay()
+    this.remindStatus()
   }
 }
 </script>

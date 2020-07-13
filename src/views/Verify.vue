@@ -32,12 +32,19 @@ export default {
   created: function () {
     console.log('进')
     const code = window.localStorage.getItem('code')
+    const openid = window.localStorage.getItem('openid')
+    console.log(openid)
     // const code = this.getUrlParam('code')
     // const code = this.getQueryString('code')
     if (!code) {
+      console.log('1')
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx00f633243d4191a7&redirect_uri=http://wq.xioabuding.top/web/dist&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_re'
+    } else if (openid) {
+      console.log('2')
+      return false
     } else {
-      console.log(code)
+      console.log('3')
+      // console.log(code)
       console.log('=========================')
       this.$axios({
         url: 'http://fast.xioabuding.top/api/wechat/infor',

@@ -58,7 +58,7 @@ export default {
     result () {
       var openid = window.window.localStorage.getItem('openid')
       var sum = window.window.localStorage.getItem('sum')
-      sum = sum + this.sex + this.age
+      sum = parseInt(sum) + parseInt(this.sex) + parseInt(this.age)
       this.$axios({
         url: 'http://fast.xioabuding.top/api/question/counter',
         // url: 'http://www.fast.test/api/question/counter',
@@ -77,7 +77,8 @@ export default {
           // localStorage.setItem('sum', 0)
           this.$router.push('/result')
         } else {
-          this.$message.error('网络错误')
+          this.$router.push('/result')
+          // this.$message.error('网络错误')
         }
       }).catch(error => {
         this.$message.error('网络错误')
