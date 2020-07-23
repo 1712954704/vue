@@ -1,6 +1,6 @@
 <template>
   <div class="qrcode">
-    <img :src=url  alt = "">
+    <img :src=url  alt = "" :style="styleObj">
   </div>
 </template>
 <script>
@@ -10,19 +10,45 @@ export default {
   data () {
     return {
       msg: '',
-      url: ''
+      url: 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=',
+      styleObj: {
+        height: '',
+        width: ''
+      }
     }
   },
   methods: {
+    getHeight () {
+      // 高度
+      // this.styleObj.height = document.documentElement.clientHeight * 0.6 + 'px'
+      this.styleObj.width = Window.innerWidth + 'px'
+      console.log(Window.innerWidth + 'px')
+    },
     getCode () {
       const code = window.localStorage.getItem('code')
       const openid = window.localStorage.getItem('openid')
       // const code = this.getUrlParam('code')
       // const code = this.getQueryString('code')
       if (!code) {
-        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx00f633243d4191a7&redirect_uri=http://fast.xioabuding.top/eye/qrcode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_re'
+        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx00f633243d4191a7&redirect_uri=http://fast.xioabuding.top/qrcode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_re'
       } else if (openid) {
-        return false
+        this.$axios({
+          url: 'http://fast.xioabuding.top/api/wechat/qrCode',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          params: {
+            openid: openid
+          },
+          method: 'get'
+        }).then(response => {
+          if (response.data.code === 200) {
+            this.url += response.data.data.ticket
+          } else {
+            this.$message.error('网络错误')
+          }
+        }).catch(error => {
+          this.$message.error('网络错误')
+          window.console.log(error)
+        })
       } else {
         console.log(code)
         console.log('=========================')
@@ -50,7 +76,7 @@ export default {
               method: 'get'
             }).then(response => {
               if (response.data.code === 200) {
-                this.url = response.data.data.url
+                this.url += response.data.data.ticket
               } else {
                 this.$message.error('网络错误')
               }
@@ -70,6 +96,7 @@ export default {
   },
   mounted () {
     this.getCode()
+    this.getHeight()
   }
 }
 </script>
